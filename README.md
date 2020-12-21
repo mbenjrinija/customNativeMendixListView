@@ -2,7 +2,7 @@
 Mendix listview with finegrained control over react elements and rendering
 
 ## Features
-[Preview](https://github.com/IncentroBA/customlistview/blob/main/img/preview.png)
+![Preview](https://raw.githubusercontent.com/IncentroBA/customlistview/main/img/preview.png?raw=true)
 
 
 ## Usage
