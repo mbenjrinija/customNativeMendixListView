@@ -1,0 +1,32 @@
+{
+  "name": "customlistview",
+  "widgetName": "CustomListView",
+  "version": "1.0.0",
+  "description": "Custom Listview",
+  "copyright": "2020 Incentro Business Acceleration B.V.",
+  "author": "Bart Onstee",
+  "config": {
+    "projectPath": "../..//"
+  },
+  "packagePath": "incentro",
+  "scripts": {
+    "start": "npm run dev",
+    "build": "pluggable-widgets-tools build:native",
+    "dev": "pluggable-widgets-tools start:native",
+    "lint": "pluggable-widgets-tools lint",
+    "lint:fix": "pluggable-widgets-tools lint:fix",
+    "prerelease": "npm run lint",
+    "release": "pluggable-widgets-tools release:native"
+  },
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/Bart Onstee/customlistview/issues"
+  },
+  "devDependencies": {
+    "@mendix/pluggable-widgets-tools": "^8.12.0",
+    "@types/big.js": "^4.0.5",
+    "@types/react": "~16.9.0",
+    "@types/react-native": "~0.61.23"
+  },
+  "dependencies": {}
+}

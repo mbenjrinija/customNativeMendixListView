@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<widget id="incentro.customlistview.CustomListView" pluginWidget="true" needsEntityContext="true" offlineCapable="true"
+        supportedPlatform="Native"
+        xmlns="http://www.mendix.com/widget/1.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.mendix.com/widget/1.0/ ../node_modules/mendix/custom_widget.xsd">
+    <name>Custom ListView</name>
+    <description>Custom Listview</description>
+    <icon/>
+    <properties>
+        <propertyGroup caption="General">
+            <property key="ds" type="datasource" required="true" isList="true">
+                <caption>Datasource</caption>
+                <description>List of items</description>
+            </property>
+            <property key="container" type="widgets" dataSource="ds" required="true">
+                <caption>Container</caption>
+                <description></description>
+            </property>
+            <property key="scrollView" type="boolean" defaultValue="false">
+                <caption>Scroll View</caption>
+                <description>Use a scrollview instead of a flatlist. Flatlist functions will not work.</description>
+            </property>
+
+        </propertyGroup>
+        <propertyGroup caption="Flatlist">
+            <property key="onClick" type="action" required="false" dataSource="ds">
+                <caption>On click</caption>
+                <description>Action to perform when listview item is pressed.</description>
+            </property>
+            <property key="emptyMessage" type="string" defaultValue="Empty">
+                <caption>Empty message</caption>
+                <description>Message to show when list is empty.</description>
+            </property>
+            <property key="scrollToItem" type="attribute" required="false">
+                <caption>Scroll to item</caption>
+                <description>Attribute boolean to activate automatic scroll. Scroll item must also be filled!</description>
+                <attributeTypes>
+                    <attributeType name="Boolean"/>
+                </attributeTypes>
+            </property>
+            <property key="scrollItem" type="attribute" required="false">
+                <caption>Scroll item</caption>
+                <description>Contains the index for where to scroll when scroll to item is set to true.</description>
+                <attributeTypes>
+                    <attributeType name="Integer"/>
+                </attributeTypes>
+            </property>
+            <property key="windowSize" type="integer" defaultValue="21">
+                <caption>Window size</caption>
+                <description>The number passed here is a measurement unit where 1 is equivalent to your viewport height.</description>
+            </property>
+            <property key="initialNumToRender" type="integer" defaultValue="10">
+                <caption>Initial nr. of items</caption>
+                <description>Set initial number of items to render when component mounts.</description>
+            </property>
+            <property key="maxNumberToRenderPerBatch" type="integer" defaultValue="5">
+                <caption>Max. render per batch</caption>
+                <description>Set number of items to render while scrolling.</description>
+            </property>
+            <property key="cellBatchingSize" type="integer" defaultValue="100">
+                <caption>Batching delay</caption>
+                <description>Set delay in milliseconds between batch renders. </description>
+            </property>
+            <property key="removeClippedSubviews" type="boolean" defaultValue="false">
+                <caption>Remove clipped subviews</caption>
+                <description>Unmounts components that are outside the window.</description>
+            </property>
+            <property key="useItemLayout" type="boolean" defaultValue="false">
+                <caption>Use getItemLayout</caption>
+                <description>Use flatlist getItemLayout for scrolling performance. Needs a fixed item height, which can be altered below.</description>
+            </property>
+            <property key="itemSize" type="decimal" defaultValue="50">
+                <caption>Item height</caption>
+                <description>Set item height.</description>
+            </property>                         
+        </propertyGroup>
+    </properties>
+</widget>
