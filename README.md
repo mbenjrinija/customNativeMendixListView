@@ -4,15 +4,26 @@ Mendix listview with finegrained control over react elements and rendering
 ## Features
 ![Preview](https://raw.githubusercontent.com/IncentroBA/customlistview/main/img/preview.png?raw=true)
 
-
 ## Usage
-[step by step instructions]
+For development:
+
+Create customwidgets folder in root of project directory
+Git clone this repo into customwidgets folder
+Open command prompt in cloned folder
+npm i
+npm run dev / npm run build
+Widget can now be used inside Mendix.
+
+For plain usage:
+
+Copy MPK file in releases to widgets directory.
+
 
 ## Demo project
-[link to sandbox]
+Not available yet.
 
 ## Issues, suggestions and feature requests
-[link to GitHub issues]
+https://github.com/IncentroBA/customlistview/issues
 
 ## Development and contribution
-[specify contribute]
+Bart Onstee
