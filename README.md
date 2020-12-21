@@ -1,8 +1,8 @@
 ## CustomListView
-[Custom Listview]
+Mendix listview with finegrained control over react elements and rendering
 
 ## Features
-[feature highlights]
+
 
 ## Usage
 [step by step instructions]
