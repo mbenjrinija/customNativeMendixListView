@@ -1,5 +1,5 @@
 import { PureComponent, ReactNode, createElement, createRef } from "react";
-import { View, FlatList, ScrollView, TouchableOpacity, Text, ViewStyle } from "react-native";
+import { View, FlatList, ScrollView, TouchableOpacity, ViewStyle } from "react-native";
 import { ObjectItem } from "mendix";
 import { Big } from "big.js"
 
@@ -9,13 +9,19 @@ import { Style, mergeNativeStyles } from '@mendix/pluggable-widgets-tools';
 let clickTimer: number;
 
 export interface CustomStyle extends Style {
-    footer: ViewStyle
+    container: ViewStyle,
+    contentContainerStyle: ViewStyle,
+    footer: ViewStyle,
+    emptyView: ViewStyle
 }
 
 const defaultStyle: CustomStyle = {
+    container: {},
+    contentContainerStyle: {},
     footer: {
         marginBottom: 300,
-    }
+    },
+    emptyView: {},
 };
 
 interface State {
@@ -42,7 +48,7 @@ export class CustomListView extends PureComponent<CustomListViewProps<CustomStyl
     render(): ReactNode {
         const { scrollView } = this.props;
         return (
-                <View>{scrollView ? <this.renderScrollViewHandler /> : <this.renderFlatListHandler />}</View>  
+                <View style={this.styles.container}>{scrollView ? <this.renderScrollViewHandler /> : <this.renderFlatListHandler />}</View>  
         )
     }
 
@@ -65,6 +71,7 @@ export class CustomListView extends PureComponent<CustomListViewProps<CustomStyl
                         windowSize={windowSize}
                         initialNumToRender={initialNumToRender}
                         removeClippedSubviews={removeClippedSubviews}
+                        contentContainerStyle={this.styles.contentContainerStyle}
                         ListEmptyComponent={this.renderEmptyHandler()}
                         maxToRenderPerBatch={maxNumberToRenderPerBatch}
                         ListFooterComponent={this.renderFooterHandler()}
@@ -76,6 +83,7 @@ export class CustomListView extends PureComponent<CustomListViewProps<CustomStyl
                         windowSize={windowSize}
                         initialNumToRender={initialNumToRender}
                         removeClippedSubviews={removeClippedSubviews}
+                        contentContainerStyle={this.styles.contentContainerStyle}
                         ListEmptyComponent={this.renderEmptyHandler()}
                         maxToRenderPerBatch={maxNumberToRenderPerBatch}
                         ListFooterComponent={this.renderFooterHandler()}
@@ -119,8 +127,8 @@ export class CustomListView extends PureComponent<CustomListViewProps<CustomStyl
     }
     
     renderEmpty() {
-        const { emptyMessage } = this.props;
-        return <View><Text>{emptyMessage}</Text></View>
+        const { emptyView } = this.props;
+        return <View style={this.styles.emptyView} >{emptyView}</View>
     }
 
     onClick(item: ObjectItem, index: number) {
@@ -130,7 +138,7 @@ export class CustomListView extends PureComponent<CustomListViewProps<CustomStyl
             this.setState({ clickDisabled: true });
             actionValue.execute();
             scrollItem?.setValue(new Big(index));
-            clickTimer = setTimeout(() => {
+            clickTimer = window.setTimeout(() => {
                 this.setState({ clickDisabled: false });
             }, 3000);
         }

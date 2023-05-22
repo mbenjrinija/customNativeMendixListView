@@ -16,6 +16,10 @@
                 <caption>Container</caption>
                 <description></description>
             </property>
+            <property key="emptyView" type="widgets" required="false">
+                <caption>Empty View</caption>
+                <description>The view that will be displayed in case the list was empty</description>
+            </property>
             <property key="scrollView" type="boolean" defaultValue="false">
                 <caption>Scroll View</caption>
                 <description>Use a scrollview instead of a flatlist. Flatlist functions will not work.</description>
@@ -26,10 +30,6 @@
             <property key="onClick" type="action" required="false" dataSource="ds">
                 <caption>On click</caption>
                 <description>Action to perform when listview item is pressed.</description>
-            </property>
-            <property key="emptyMessage" type="string" defaultValue="Empty">
-                <caption>Empty message</caption>
-                <description>Message to show when list is empty.</description>
             </property>
             <property key="scrollToItem" type="attribute" required="false">
                 <caption>Scroll to item</caption>
