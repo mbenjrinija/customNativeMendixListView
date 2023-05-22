@@ -53,8 +53,11 @@ export class CustomListView extends PureComponent<CustomListViewProps<CustomStyl
     }
 
     renderFlatList() {
-        const { ds, windowSize, initialNumToRender, removeClippedSubviews, maxNumberToRenderPerBatch, cellBatchingSize, useItemLayout, itemSize } = this.props;
+        const { ds, windowSize, initialNumToRender, removeClippedSubviews, maxNumberToRenderPerBatch, cellBatchingSize, useItemLayout, itemSize, pullAction } = this.props;
         const size = Number(itemSize)
+        const onPull = () => {
+            pullAction?.execute();
+        };
         return (
             <View>
                 {useItemLayout ?
@@ -75,6 +78,8 @@ export class CustomListView extends PureComponent<CustomListViewProps<CustomStyl
                         ListEmptyComponent={this.renderEmptyHandler()}
                         maxToRenderPerBatch={maxNumberToRenderPerBatch}
                         ListFooterComponent={this.renderFooterHandler()}
+                        refreshing={pullAction?.isExecuting}
+                        onRefresh={pullAction?.canExecute ? onPull : null}
                     />
                     :
                     <FlatList
@@ -88,6 +93,8 @@ export class CustomListView extends PureComponent<CustomListViewProps<CustomStyl
                         maxToRenderPerBatch={maxNumberToRenderPerBatch}
                         ListFooterComponent={this.renderFooterHandler()}
                         updateCellsBatchingPeriod={cellBatchingSize}
+                        refreshing={pullAction?.isExecuting}
+                        onRefresh={pullAction?.canExecute ? onPull : null}
                     />
                 }
             </View>

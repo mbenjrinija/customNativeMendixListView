@@ -4,7 +4,7 @@
  * @author Mendix Widgets Framework Team
  */
 import { ComponentType, CSSProperties, ReactNode } from "react";
-import { EditableValue, ListValue, ListActionValue, ListWidgetValue } from "mendix";
+import { ActionValue, EditableValue, ListValue, ListActionValue, ListWidgetValue } from "mendix";
 import { Big } from "big.js";
 
 export interface CustomListViewProps<Style> {
@@ -14,6 +14,7 @@ export interface CustomListViewProps<Style> {
     container: ListWidgetValue;
     emptyView?: ReactNode;
     scrollView: boolean;
+    pullAction?: ActionValue;
     onClick?: ListActionValue;
     scrollToItem?: EditableValue<boolean>;
     scrollItem?: EditableValue<Big>;
@@ -39,6 +40,7 @@ export interface CustomListViewPreviewProps {
     container: { widgetCount: number; renderer: ComponentType<{ children: ReactNode; caption?: string }> };
     emptyView: { widgetCount: number; renderer: ComponentType<{ children: ReactNode; caption?: string }> };
     scrollView: boolean;
+    pullAction: {} | null;
     onClick: {} | null;
     scrollToItem: string;
     scrollItem: string;

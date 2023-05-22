@@ -24,7 +24,10 @@
                 <caption>Scroll View</caption>
                 <description>Use a scrollview instead of a flatlist. Flatlist functions will not work.</description>
             </property>
-
+            <property key="pullAction" type="action">
+                <caption>On pull down</caption>
+                <description>Action to be performed when pulling down the list</description>
+            </property>
         </propertyGroup>
         <propertyGroup caption="Flatlist">
             <property key="onClick" type="action" required="false" dataSource="ds">

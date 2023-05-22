@@ -272,17 +272,20 @@ class CustomListView extends PureComponent {
         return (createElement(View, { style: this.styles.container }, scrollView ? createElement(this.renderScrollViewHandler, null) : createElement(this.renderFlatListHandler, null)));
     }
     renderFlatList() {
-        const { ds, windowSize, initialNumToRender, removeClippedSubviews, maxNumberToRenderPerBatch, cellBatchingSize, useItemLayout, itemSize } = this.props;
+        const { ds, windowSize, initialNumToRender, removeClippedSubviews, maxNumberToRenderPerBatch, cellBatchingSize, useItemLayout, itemSize, pullAction } = this.props;
         const size = Number(itemSize);
+        const onPull = () => {
+            pullAction === null || pullAction === void 0 ? void 0 : pullAction.execute();
+        };
         return (createElement(View, null, useItemLayout ?
             createElement(FlatList, { getItemLayout: (data, index) => ({
                     length: size,
                     offset: size * index,
                     index,
                     data
-                }), ref: this.flatListRef, data: ds === null || ds === void 0 ? void 0 : ds.items, renderItem: this.renderItem, windowSize: windowSize, initialNumToRender: initialNumToRender, removeClippedSubviews: removeClippedSubviews, contentContainerStyle: this.styles.contentContainerStyle, ListEmptyComponent: this.renderEmptyHandler(), maxToRenderPerBatch: maxNumberToRenderPerBatch, ListFooterComponent: this.renderFooterHandler() })
+                }), ref: this.flatListRef, data: ds === null || ds === void 0 ? void 0 : ds.items, renderItem: this.renderItem, windowSize: windowSize, initialNumToRender: initialNumToRender, removeClippedSubviews: removeClippedSubviews, contentContainerStyle: this.styles.contentContainerStyle, ListEmptyComponent: this.renderEmptyHandler(), maxToRenderPerBatch: maxNumberToRenderPerBatch, ListFooterComponent: this.renderFooterHandler(), refreshing: pullAction === null || pullAction === void 0 ? void 0 : pullAction.isExecuting, onRefresh: (pullAction === null || pullAction === void 0 ? void 0 : pullAction.canExecute) ? onPull : null })
             :
-                createElement(FlatList, { data: ds === null || ds === void 0 ? void 0 : ds.items, renderItem: this.renderItem, windowSize: windowSize, initialNumToRender: initialNumToRender, removeClippedSubviews: removeClippedSubviews, contentContainerStyle: this.styles.contentContainerStyle, ListEmptyComponent: this.renderEmptyHandler(), maxToRenderPerBatch: maxNumberToRenderPerBatch, ListFooterComponent: this.renderFooterHandler(), updateCellsBatchingPeriod: cellBatchingSize })));
+                createElement(FlatList, { data: ds === null || ds === void 0 ? void 0 : ds.items, renderItem: this.renderItem, windowSize: windowSize, initialNumToRender: initialNumToRender, removeClippedSubviews: removeClippedSubviews, contentContainerStyle: this.styles.contentContainerStyle, ListEmptyComponent: this.renderEmptyHandler(), maxToRenderPerBatch: maxNumberToRenderPerBatch, ListFooterComponent: this.renderFooterHandler(), updateCellsBatchingPeriod: cellBatchingSize, refreshing: pullAction === null || pullAction === void 0 ? void 0 : pullAction.isExecuting, onRefresh: (pullAction === null || pullAction === void 0 ? void 0 : pullAction.canExecute) ? onPull : null })));
     }
     renderScrollView() {
         var _a;
