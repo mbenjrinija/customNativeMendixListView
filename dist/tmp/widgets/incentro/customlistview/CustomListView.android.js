@@ -251,9 +251,10 @@ class CustomListView extends PureComponent {
         this.renderFooterHandler = this.renderFooter.bind(this);
         this.flatListRef = createRef();
         this.renderItem = ({ item, index }) => {
-            const { container, useItemLayout, itemSize } = this.props;
+            const { container, useItemLayout, itemSize, onClick } = this.props;
+            const actionValue = onClick === null || onClick === void 0 ? void 0 : onClick.get(item);
             return (createElement(View, null,
-                createElement(TouchableOpacity, { onPress: () => this.onClickHandler(item, index), disabled: this.state.clickDisabled },
+                createElement(TouchableOpacity, { onPress: () => this.onClickHandler(item, index), disabled: !(actionValue === null || actionValue === void 0 ? void 0 : actionValue.canExecute) },
                     createElement(View, { key: item.id, style: useItemLayout ? { height: Number(itemSize) } : null }, container(item)))));
         };
         this.scrollToOffset = (index) => {
@@ -302,10 +303,12 @@ class CustomListView extends PureComponent {
     }
     onClick(item, index) {
         const { onClick, scrollItem } = this.props;
-        const actionValue = onClick(item);
-        if (!this.state.clickDisabled) {
+        const actionValue = onClick === null || onClick === void 0 ? void 0 : onClick.get(item);
+        if (!this.state.clickDisabled &&
+            (actionValue === null || actionValue === void 0 ? void 0 : actionValue.canExecute) &&
+            !(actionValue === null || actionValue === void 0 ? void 0 : actionValue.isExecuting)) {
             this.setState({ clickDisabled: true });
-            actionValue.execute();
+            actionValue === null || actionValue === void 0 ? void 0 : actionValue.execute();
             scrollItem === null || scrollItem === void 0 ? void 0 : scrollItem.setValue(new Big(index));
             clickTimer = window.setTimeout(() => {
                 this.setState({ clickDisabled: false });

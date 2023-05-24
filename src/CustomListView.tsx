@@ -113,10 +113,11 @@ export class CustomListView extends PureComponent<CustomListViewProps<CustomStyl
     }
 
     renderItem = ({ item, index }: { item: ObjectItem, index: number }) => {
-        const { container, useItemLayout, itemSize } = this.props;
+        const { container, useItemLayout, itemSize, onClick } = this.props;
+        const actionValue = onClick?.get(item);
         return (
             <View>
-            <TouchableOpacity onPress={() => this.onClickHandler(item, index)} disabled={this.state.clickDisabled}>
+            <TouchableOpacity onPress={() => this.onClickHandler(item, index)} disabled={ !actionValue?.canExecute }>
             <View key={item.id} style={useItemLayout ? { height: Number(itemSize) } : null}>{container(item)}</View>
             </TouchableOpacity>
         </View>
@@ -140,10 +141,13 @@ export class CustomListView extends PureComponent<CustomListViewProps<CustomStyl
 
     onClick(item: ObjectItem, index: number) {
         const { onClick, scrollItem } = this.props;
-        const actionValue = onClick!(item);
-        if (!this.state.clickDisabled) {
+        const actionValue = onClick?.get(item);
+        
+        if (!this.state.clickDisabled && 
+            actionValue?.canExecute &&
+            !(actionValue?.isExecuting) ) {
             this.setState({ clickDisabled: true });
-            actionValue.execute();
+            actionValue?.execute();
             scrollItem?.setValue(new Big(index));
             clickTimer = window.setTimeout(() => {
                 this.setState({ clickDisabled: false });
