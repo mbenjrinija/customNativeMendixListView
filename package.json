@@ -27,20 +27,12 @@
     "@types/big.js": "^6.0.2"
   },
   "dependencies": {},
-  "overrides": {
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "react-native": "0.70.7",
-    "@types/react": "18.0.0",
-    "@types/react-dom": "18.0.0",
-    "@types/react-native": "0.70.0"
-  },
   "resolutions": {
     "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "react-native": "0.70.7",
-    "@types/react": "18.0.0",
-    "@types/react-dom": "18.0.0",
-    "@types/react-native": "0.70.0"
+    "react-native": "0.70.7"
+  },
+  "overrides": {
+    "react": "18.2.0",
+    "react-native": "0.70.7"
   }
 }

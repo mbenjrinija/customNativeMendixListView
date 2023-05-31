@@ -234,6 +234,7 @@ let clickTimer;
 const defaultStyle = {
     container: {},
     contentContainerStyle: {},
+    header: {},
     footer: {
         marginBottom: 300,
     },
@@ -255,7 +256,7 @@ class CustomListView extends PureComponent {
             const actionValue = onClick === null || onClick === void 0 ? void 0 : onClick.get(item);
             return (createElement(View, null,
                 createElement(TouchableOpacity, { onPress: () => this.onClickHandler(item, index), disabled: !(actionValue === null || actionValue === void 0 ? void 0 : actionValue.canExecute) },
-                    createElement(View, { key: item.id, style: useItemLayout ? { height: Number(itemSize) } : null }, container(item)))));
+                    createElement(View, { key: item.id, style: useItemLayout ? { height: Number(itemSize) } : null }, container.get(item)))));
         };
         this.scrollToOffset = (index) => {
             var _a, _b;
@@ -273,7 +274,7 @@ class CustomListView extends PureComponent {
         return (createElement(View, { style: this.styles.container }, scrollView ? createElement(this.renderScrollViewHandler, null) : createElement(this.renderFlatListHandler, null)));
     }
     renderFlatList() {
-        const { ds, windowSize, initialNumToRender, removeClippedSubviews, maxNumberToRenderPerBatch, cellBatchingSize, useItemLayout, itemSize, pullAction } = this.props;
+        const { ds, windowSize, initialNumToRender, removeClippedSubviews, maxNumberToRenderPerBatch, cellBatchingSize, useItemLayout, showsHorizontalScrollIndicator, showsVerticalScrollIndicator, itemSize, pullAction, } = this.props;
         const size = Number(itemSize);
         const onPull = () => {
             pullAction === null || pullAction === void 0 ? void 0 : pullAction.execute();
@@ -284,18 +285,22 @@ class CustomListView extends PureComponent {
                     offset: size * index,
                     index,
                     data
-                }), ref: this.flatListRef, data: ds === null || ds === void 0 ? void 0 : ds.items, renderItem: this.renderItem, windowSize: windowSize, initialNumToRender: initialNumToRender, removeClippedSubviews: removeClippedSubviews, contentContainerStyle: this.styles.contentContainerStyle, ListEmptyComponent: this.renderEmptyHandler(), maxToRenderPerBatch: maxNumberToRenderPerBatch, ListFooterComponent: this.renderFooterHandler(), refreshing: pullAction === null || pullAction === void 0 ? void 0 : pullAction.isExecuting, onRefresh: (pullAction === null || pullAction === void 0 ? void 0 : pullAction.canExecute) ? onPull : null })
+                }), ref: this.flatListRef, data: ds === null || ds === void 0 ? void 0 : ds.items, renderItem: this.renderItem, windowSize: windowSize, initialNumToRender: initialNumToRender, removeClippedSubviews: removeClippedSubviews, contentContainerStyle: this.styles.contentContainerStyle, ListEmptyComponent: this.renderEmptyHandler(), maxToRenderPerBatch: maxNumberToRenderPerBatch, scrollIndicatorInsets: { right: 0 }, ListHeaderComponent: this.renderHeader(), ListFooterComponent: this.renderFooterHandler(), showsHorizontalScrollIndicator: showsHorizontalScrollIndicator, showsVerticalScrollIndicator: showsVerticalScrollIndicator, refreshing: pullAction === null || pullAction === void 0 ? void 0 : pullAction.isExecuting, onRefresh: (pullAction === null || pullAction === void 0 ? void 0 : pullAction.canExecute) ? onPull : null })
             :
-                createElement(FlatList, { data: ds === null || ds === void 0 ? void 0 : ds.items, renderItem: this.renderItem, windowSize: windowSize, initialNumToRender: initialNumToRender, removeClippedSubviews: removeClippedSubviews, contentContainerStyle: this.styles.contentContainerStyle, ListEmptyComponent: this.renderEmptyHandler(), maxToRenderPerBatch: maxNumberToRenderPerBatch, ListFooterComponent: this.renderFooterHandler(), updateCellsBatchingPeriod: cellBatchingSize, refreshing: pullAction === null || pullAction === void 0 ? void 0 : pullAction.isExecuting, onRefresh: (pullAction === null || pullAction === void 0 ? void 0 : pullAction.canExecute) ? onPull : null })));
+                createElement(FlatList, { data: ds === null || ds === void 0 ? void 0 : ds.items, renderItem: this.renderItem, windowSize: windowSize, initialNumToRender: initialNumToRender, removeClippedSubviews: removeClippedSubviews, contentContainerStyle: this.styles.contentContainerStyle, ListEmptyComponent: this.renderEmptyHandler(), maxToRenderPerBatch: maxNumberToRenderPerBatch, scrollIndicatorInsets: { right: 0 }, ListHeaderComponent: this.renderHeader(), ListFooterComponent: this.renderFooterHandler(), showsHorizontalScrollIndicator: showsHorizontalScrollIndicator, showsVerticalScrollIndicator: showsVerticalScrollIndicator, updateCellsBatchingPeriod: cellBatchingSize, refreshing: pullAction === null || pullAction === void 0 ? void 0 : pullAction.isExecuting, onRefresh: (pullAction === null || pullAction === void 0 ? void 0 : pullAction.canExecute) ? onPull : null })));
     }
     renderScrollView() {
         var _a;
         const { ds, container } = this.props;
         return (createElement(View, null,
-            createElement(ScrollView, null, (_a = ds.items) === null || _a === void 0 ? void 0 : _a.map((item) => createElement(View, { key: item.id }, container(item))))));
+            createElement(ScrollView, null, (_a = ds.items) === null || _a === void 0 ? void 0 : _a.map((item) => createElement(View, { key: item.id }, container.get(item))))));
     }
     renderFooter() {
         return createElement(View, { style: this.styles.footer });
+    }
+    renderHeader() {
+        const { headerView } = this.props;
+        return createElement(View, { style: this.styles.header }, headerView);
     }
     renderEmpty() {
         const { emptyView } = this.props;

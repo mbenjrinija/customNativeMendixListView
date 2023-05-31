@@ -11,13 +11,15 @@ let clickTimer: number;
 export interface CustomStyle extends Style {
     container: ViewStyle,
     contentContainerStyle: ViewStyle,
+    header: ViewStyle,
     footer: ViewStyle,
-    emptyView: ViewStyle
+    emptyView: ViewStyle,
 }
 
 const defaultStyle: CustomStyle = {
     container: {},
     contentContainerStyle: {},
+    header: {},
     footer: {
         marginBottom: 300,
     },
@@ -53,7 +55,12 @@ export class CustomListView extends PureComponent<CustomListViewProps<CustomStyl
     }
 
     renderFlatList() {
-        const { ds, windowSize, initialNumToRender, removeClippedSubviews, maxNumberToRenderPerBatch, cellBatchingSize, useItemLayout, itemSize, pullAction } = this.props;
+        const { 
+            ds, windowSize, initialNumToRender, removeClippedSubviews, 
+            maxNumberToRenderPerBatch, cellBatchingSize, useItemLayout, 
+            showsHorizontalScrollIndicator, showsVerticalScrollIndicator,
+            itemSize, pullAction, 
+        } = this.props;
         const size = Number(itemSize)
         const onPull = () => {
             pullAction?.execute();
@@ -77,7 +84,11 @@ export class CustomListView extends PureComponent<CustomListViewProps<CustomStyl
                         contentContainerStyle={this.styles.contentContainerStyle}
                         ListEmptyComponent={this.renderEmptyHandler()}
                         maxToRenderPerBatch={maxNumberToRenderPerBatch}
+                        scrollIndicatorInsets={{ right: 0 }}
+                        ListHeaderComponent={this.renderHeader()}
                         ListFooterComponent={this.renderFooterHandler()}
+                        showsHorizontalScrollIndicator={showsHorizontalScrollIndicator}
+                        showsVerticalScrollIndicator={showsVerticalScrollIndicator}
                         refreshing={pullAction?.isExecuting}
                         onRefresh={pullAction?.canExecute ? onPull : null}
                     />
@@ -91,7 +102,11 @@ export class CustomListView extends PureComponent<CustomListViewProps<CustomStyl
                         contentContainerStyle={this.styles.contentContainerStyle}
                         ListEmptyComponent={this.renderEmptyHandler()}
                         maxToRenderPerBatch={maxNumberToRenderPerBatch}
+                        scrollIndicatorInsets={{ right: 0 }}
+                        ListHeaderComponent={this.renderHeader()}
                         ListFooterComponent={this.renderFooterHandler()}
+                        showsHorizontalScrollIndicator={showsHorizontalScrollIndicator}
+                        showsVerticalScrollIndicator={showsVerticalScrollIndicator}
                         updateCellsBatchingPeriod={cellBatchingSize}
                         refreshing={pullAction?.isExecuting}
                         onRefresh={pullAction?.canExecute ? onPull : null}
@@ -106,7 +121,7 @@ export class CustomListView extends PureComponent<CustomListViewProps<CustomStyl
         return (
             <View>
                 <ScrollView>
-                    {ds.items?.map((item) => <View key={item.id}>{container(item)}</View>)}
+                    {ds.items?.map((item) => <View key={item.id}>{container.get(item)}</View>)}
                 </ScrollView>
             </View>
         );
@@ -118,7 +133,7 @@ export class CustomListView extends PureComponent<CustomListViewProps<CustomStyl
         return (
             <View>
             <TouchableOpacity onPress={() => this.onClickHandler(item, index)} disabled={ !actionValue?.canExecute }>
-            <View key={item.id} style={useItemLayout ? { height: Number(itemSize) } : null}>{container(item)}</View>
+            <View key={item.id} style={useItemLayout ? { height: Number(itemSize) } : null}>{container.get(item)}</View>
             </TouchableOpacity>
         </View>
         )
@@ -132,6 +147,11 @@ export class CustomListView extends PureComponent<CustomListViewProps<CustomStyl
         const { itemSize } = this.props
         this.flatListRef.current?.scrollToOffset({ animated: true, offset: index * Number(itemSize) })
         this.props.scrollToItem?.setValue(false);
+    }
+
+    renderHeader() {
+        const { headerView } = this.props;
+        return <View style={this.styles.header} >{headerView}</View>
     }
     
     renderEmpty() {

@@ -12,6 +12,10 @@
                 <caption>Datasource</caption>
                 <description>List of items</description>
             </property>
+            <property key="headerView" type="widgets" required="false">
+                <caption>Header View</caption>
+                <description>The view that will be displayed as a header for the list</description>
+            </property>
             <property key="container" type="widgets" dataSource="ds" required="true">
                 <caption>Container</caption>
                 <description></description>
@@ -75,7 +79,15 @@
             <property key="itemSize" type="decimal" defaultValue="50">
                 <caption>Item height</caption>
                 <description>Set item height.</description>
-            </property>                         
+            </property>
+            <property key="showsHorizontalScrollIndicator" type="boolean" defaultValue="true">
+                <caption>Horizontal Scroll Indicator</caption>
+                <description>Show Horizontal Scroll Indicator</description>
+            </property>
+            <property key="showsVerticalScrollIndicator" type="boolean" defaultValue="true">
+                <caption>Vertical Scroll Indicator</caption>
+                <description>Show Vertical Scroll Indicator</description>
+            </property>                            
         </propertyGroup>
     </properties>
 </widget>

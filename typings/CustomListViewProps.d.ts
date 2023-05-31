@@ -11,6 +11,7 @@ export interface CustomListViewProps<Style> {
     name: string;
     style: Style[];
     ds: ListValue;
+    headerView?: ReactNode;
     container: ListWidgetValue;
     emptyView?: ReactNode;
     scrollView: boolean;
@@ -25,6 +26,8 @@ export interface CustomListViewProps<Style> {
     removeClippedSubviews: boolean;
     useItemLayout: boolean;
     itemSize: Big;
+    showsHorizontalScrollIndicator: boolean;
+    showsVerticalScrollIndicator: boolean;
 }
 
 export interface CustomListViewPreviewProps {
@@ -37,6 +40,7 @@ export interface CustomListViewPreviewProps {
     styleObject?: CSSProperties;
     readOnly: boolean;
     ds: {} | { caption: string } | { type: string } | null;
+    headerView: { widgetCount: number; renderer: ComponentType<{ children: ReactNode; caption?: string }> };
     container: { widgetCount: number; renderer: ComponentType<{ children: ReactNode; caption?: string }> };
     emptyView: { widgetCount: number; renderer: ComponentType<{ children: ReactNode; caption?: string }> };
     scrollView: boolean;
@@ -51,4 +55,6 @@ export interface CustomListViewPreviewProps {
     removeClippedSubviews: boolean;
     useItemLayout: boolean;
     itemSize: number | null;
+    showsHorizontalScrollIndicator: boolean;
+    showsVerticalScrollIndicator: boolean;
 }
