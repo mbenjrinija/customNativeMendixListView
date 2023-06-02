@@ -84,7 +84,7 @@ export class CustomListView extends PureComponent<CustomListViewProps<CustomStyl
                         contentContainerStyle={this.styles.contentContainerStyle}
                         ListEmptyComponent={this.renderEmptyHandler()}
                         maxToRenderPerBatch={maxNumberToRenderPerBatch}
-                        scrollIndicatorInsets={{ right: 0 }}
+                        scrollIndicatorInsets={{ right: 1 }}
                         ListHeaderComponent={this.renderHeader()}
                         ListFooterComponent={this.renderFooterHandler()}
                         showsHorizontalScrollIndicator={showsHorizontalScrollIndicator}
@@ -102,7 +102,7 @@ export class CustomListView extends PureComponent<CustomListViewProps<CustomStyl
                         contentContainerStyle={this.styles.contentContainerStyle}
                         ListEmptyComponent={this.renderEmptyHandler()}
                         maxToRenderPerBatch={maxNumberToRenderPerBatch}
-                        scrollIndicatorInsets={{ right: 0 }}
+                        scrollIndicatorInsets={{ right: 1 }}
                         ListHeaderComponent={this.renderHeader()}
                         ListFooterComponent={this.renderFooterHandler()}
                         showsHorizontalScrollIndicator={showsHorizontalScrollIndicator}
